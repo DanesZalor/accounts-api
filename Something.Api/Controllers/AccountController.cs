@@ -37,8 +37,20 @@ namespace Something.Api.Controllers
 
         // POST api/<AccountController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<object> Post([FromBody] Account newAccount)
         {
+            if(_accountsRepository.Exists(newAccount.Username))
+            {
+                return Conflict($"Account:'{newAccount.Username}' already exists");
+            }
+
+            var accountToAdd = new Core.Account(
+                username: newAccount.Username, 
+                password: newAccount.Password);
+            
+            _accountsRepository.Add(accountToAdd);
+            
+            return Created("a", newAccount);
         }
 
         // DELETE api/<AccountController>/5
