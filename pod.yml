@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: accounts-api-pod
+  labels:
+    app: webapi
+spec:
+  containers:
+    - name: accounts-api
+      image: djdols/accounts-api:latest
+      ports:
+        - containerPort: 8080
