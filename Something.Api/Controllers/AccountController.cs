@@ -3,60 +3,60 @@ using Something.Core;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Something.Api.Controllers
+namespace Something.Api.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class AccountController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AccountController : ControllerBase
+    private IAccountsRepository _accountsRepository;
+
+    public AccountController(IAccountsRepository accountsRepo)
     {
-        private IAccountsRepository _accountsRepository;
+        _accountsRepository = accountsRepo ?? throw new ArgumentNullException(nameof(accountsRepo));
+    }
 
-        public AccountController(IAccountsRepository accountsRepo)
+    // GET: api/<AccountController>
+    [HttpGet]
+    public ActionResult<IEnumerable<Account>> Get()
+    {
+        return Ok(_accountsRepository.GetAll());
+    }
+
+    // GET api/<AccountController>/5
+    [HttpGet("{username}")]
+    public ActionResult<Account> Get(string username)
+    {
+        if (_accountsRepository.Exists(username)) 
         {
-            _accountsRepository = accountsRepo ?? throw new ArgumentNullException(nameof(accountsRepo));
+            return Ok(_accountsRepository.Get(username));
         }
 
-        // GET: api/<AccountController>
-        [HttpGet]
-        public ActionResult<IEnumerable<Account>> Get()
+        return NotFound();
+    }
+
+    // POST api/<AccountController>
+    [HttpPost]
+    public ActionResult<object> Post([FromBody] Account newAccount)
+    {
+        if(_accountsRepository.Exists(newAccount.Username))
         {
-            return Ok(_accountsRepository.GetAll());
+            return Conflict($"Account:'{newAccount.Username}' already exists");
         }
 
-        // GET api/<AccountController>/5
-        [HttpGet("{username}")]
-        public ActionResult<Account> Get(string username)
-        {
-            if (_accountsRepository.Exists(username)) 
-            {
-                return Ok(_accountsRepository.Get(username));
-            }
+        var accountToAdd = new Core.Account(
+            username: newAccount.Username, 
+            password: newAccount.Password);
+        
+        _accountsRepository.Add(accountToAdd);
+        
+        return Created("a", newAccount);
+    }
 
-            return NotFound();
-        }
-
-        // POST api/<AccountController>
-        [HttpPost]
-        public ActionResult<object> Post([FromBody] Account newAccount)
-        {
-            if(_accountsRepository.Exists(newAccount.Username))
-            {
-                return Conflict($"Account:'{newAccount.Username}' already exists");
-            }
-
-            var accountToAdd = new Core.Account(
-                username: newAccount.Username, 
-                password: newAccount.Password);
-            
-            _accountsRepository.Add(accountToAdd);
-            
-            return Created("a", newAccount);
-        }
-
-        // DELETE api/<AccountController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    // DELETE api/<AccountController>/5
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
     }
 }
+
