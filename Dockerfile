@@ -9,11 +9,8 @@ ENV ASPNETCORE_URLS=http://*:8080
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Something.Api/Something.Api.csproj", "Something.Api/"]
-COPY ["Something.Core/Something.Core.csproj", "Something.Core/"]
-COPY ["Something.Infra/Something.Infra.csproj", "Something.Infra/"]
-RUN dotnet restore "Something.Api/Something.Api.csproj"
 COPY . .
+RUN dotnet restore "Something.Api/Something.Api.csproj"
 WORKDIR "/src/Something.Api"
 RUN dotnet build "Something.Api.csproj" -c Release -o /app/build
 
