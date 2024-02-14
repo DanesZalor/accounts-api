@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: something-api-deployment
+  labels:
+    app: something
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: something
+  template:
+    metadata:
+      labels:
+        app: something
+    spec:
+      containers:
+      - name: something-api
+        image: "{{ .Values.images.registry }}/{{ .Values.somethingApi.image.repository }}:{{ .Values.somethingApi.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        env:
+        - name: URLS 
+          value: "http://[::]:80;https://[::]:443"

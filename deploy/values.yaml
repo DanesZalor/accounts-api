@@ -1,0 +1,11 @@
+environment: local
+
+images:
+  registry: docker.io/library
+
+somethingApi:
+  image:
+    repository: something-api
+    tag: dev
+
+

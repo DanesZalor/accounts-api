@@ -1,0 +1,25 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: jobs
+profiles:
+  - name: local
+    build:
+      tagPolicy:
+        customTemplate:
+          template: "dev"
+      local:
+        push: false
+      artifacts:
+        - image: something-api
+          context: .
+          docker:
+            dockerfile: src/Something.Api/Dockerfile
+    deploy:
+      helm:
+        releases:
+        - name: something-dev
+          chartPath: ./deploy
+          valuesFiles:
+          - ./deploy/values.yaml
+

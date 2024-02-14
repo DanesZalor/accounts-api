@@ -1,24 +1,19 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:latest AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-ENV DOTNET_URLS="http://*:80;https://*:443"
-ENV ASPNETCORE_URLS="http://*:80;https://*:443"
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:latest AS build
 WORKDIR /src
-COPY .. .
+COPY src .
 RUN dotnet restore "Something.Api/Something.Api.csproj"
-WORKDIR "/src/Something.Api"
-RUN dotnet build "Something.Api.csproj" -c Release -o /app/build
+RUN dotnet build "Something.Api/Something.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Something.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "/src/Something.Api/Something.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
 ENTRYPOINT ["dotnet", "Something.Api.dll"]
-
