@@ -1,0 +1,33 @@
+{{ if ne .Values.environment "test" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: envoy
+  namespace: projectcontour
+  annotations:
+    # This annotation puts the AWS ELB into "TCP" mode so that it does not
+    # do HTTP negotiation for HTTPS connections at the ELB edge.
+    # The downside of this is the remote IP address of all connections will
+    # appear to be the internal address of the ELB. See docs/proxy-proto.md
+    # for information about enabling the PROXY protocol on the ELB to recover
+    # the original remote IP address.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+{{ if ne .Values.environment "local" }}
+    service.beta.kubernetes.io/azure-dns-label-name: {{ .Values.domain.name }}
+{{ end }}
+
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    name: http
+    protocol: TCP
+    targetPort: 80
+  - port: 443
+    name: https
+    protocol: TCP
+    targetPort: 443
+  selector:
+    app: envoy
+  type: LoadBalancer
+{{ end }}

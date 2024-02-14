@@ -8,6 +8,7 @@ WORKDIR /src
 COPY src .
 RUN dotnet restore "Something.Api/Something.Api.csproj"
 RUN dotnet build "Something.Api/Something.Api.csproj" -c Release -o /app/build
+RUN dotnet dev-certs https
 
 FROM build AS publish
 RUN dotnet publish "/src/Something.Api/Something.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false

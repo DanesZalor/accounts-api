@@ -1,5 +1,8 @@
 environment: local
 
+domain:
+  name: something
+
 images:
   registry: docker.io/library
 
