@@ -1,3 +1,4 @@
+using System.Net;
 using Something.Core;
 using Something.Infra;
 
@@ -16,6 +17,12 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddDependencies();
+
+        builder.Services.AddHttpsRedirection(options =>
+        {
+            options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+            options.HttpsPort = 443;
+        });
         
         var app = builder.Build();
 
@@ -27,11 +34,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
-
         app.MapControllers();
-        
         app.Run();
     }
 }
