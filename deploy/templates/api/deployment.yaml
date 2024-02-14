@@ -24,3 +24,15 @@ spec:
         env:
         - name: URLS 
           value: "http://[::]:80;https://[::]:443"
+        - name: ASPNETCORE_Kestrel__Certificates__Default__Password
+          value: "testpass"
+        - name: ASPNETCORE_Kestrel__Certificates__Default__Path
+          value: "/mnt/certs/aspnetapp.pfx"
+        volumeMounts:
+        - name: certs
+          mountPath: /mnt/certs
+      volumes:
+        - name: certs
+          hostPath:
+            path: /mnt/certificates/.aspnet/https
+            type: Directory
