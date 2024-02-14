@@ -39,6 +39,9 @@ public class AccountController : ControllerBase
     [HttpPost]
     public ActionResult<object> Post([FromBody] Account newAccount)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(newAccount.Username);
+        ArgumentException.ThrowIfNullOrWhiteSpace(newAccount.Password);
+        
         if(_accountsRepository.Exists(newAccount.Username))
         {
             return Conflict($"Account:'{newAccount.Username}' already exists");
