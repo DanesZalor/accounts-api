@@ -22,7 +22,7 @@ spec:
         - containerPort: 443
         env:
         - name: URLS 
-          value: "https://*:443"
+          value: "http://*:80;https://*:443"
         - name: ASPNETCORE_Kestrel__Certificates__Default__Password
           value: "testpass"
         - name: ASPNETCORE_Kestrel__Certificates__Default__Path
