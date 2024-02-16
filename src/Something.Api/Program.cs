@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.HttpLogging;
 
 namespace Something.Api;
 
@@ -14,6 +15,13 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddDependencies();
 
+        builder.Services
+            .AddHttpLogging(logging =>
+            {
+                logging.LoggingFields = HttpLoggingFields.All;
+            })
+            .AddControllers();
+            
         builder.Services.AddHttpsRedirection(options =>
         {
             options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
@@ -30,6 +38,7 @@ public class Program
         }
 
         Console.WriteLine("I am HTTPS");
+        app.UseHttpLogging();
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();

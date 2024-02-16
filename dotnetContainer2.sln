@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Something.Infra", "src\Some
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Something.Api", "src\Something.Api\Something.Api.csproj", "{127D6958-8F91-4F25-817B-736673F8B79C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{75DA4796-83D0-4C4B-9E1C-D38FB9187E9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Something.Api", "src\Something.Api.Http\Something.Api.csproj", "{90A8A5EF-575B-4EB7-8CA1-25A5912B3068}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{127D6958-8F91-4F25-817B-736673F8B79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127D6958-8F91-4F25-817B-736673F8B79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127D6958-8F91-4F25-817B-736673F8B79C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A8A5EF-575B-4EB7-8CA1-25A5912B3068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A8A5EF-575B-4EB7-8CA1-25A5912B3068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A8A5EF-575B-4EB7-8CA1-25A5912B3068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A8A5EF-575B-4EB7-8CA1-25A5912B3068}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{90A8A5EF-575B-4EB7-8CA1-25A5912B3068} = {75DA4796-83D0-4C4B-9E1C-D38FB9187E9D}
 	EndGlobalSection
 EndGlobal

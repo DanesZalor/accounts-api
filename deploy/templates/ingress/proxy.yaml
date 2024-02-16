@@ -5,7 +5,6 @@ metadata:
   namespace: default
   annotations:
     kubernetes.io/ingress.className: "contour"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   rules:
   - http:
@@ -14,8 +13,16 @@ spec:
         pathType: Prefix
         backend:
           service:
+            name: api-service-https
+            port:
+              number: 443
+      - path: /public
+        pathType: Prefix
+        backend:
+          service:
             name: api-service-http
             port:
               number: 80
+      
   tls:
   - secretName: test-tls

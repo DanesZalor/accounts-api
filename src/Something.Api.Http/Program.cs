@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.HttpLogging;
 
 namespace Something.Api;
 
@@ -13,6 +14,13 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddDependencies();
         
+        builder.Services
+        .AddHttpLogging(logging =>
+        {
+            logging.LoggingFields = HttpLoggingFields.All;
+        })
+        .AddControllers();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -22,6 +30,8 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseHttpLogging();
+        app.UsePathBase("/public");
         app.UseAuthorization();
         app.MapControllers();
         Console.WriteLine("I am HTTP");
