@@ -5,7 +5,6 @@ namespace Something.Api.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-[RequireHttps]
 public class AccountController : ControllerBase
 {
     private IAccountsRepository _accountsRepository;

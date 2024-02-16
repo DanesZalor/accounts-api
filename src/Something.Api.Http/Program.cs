@@ -9,16 +9,9 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddDependencies();
-
-        builder.Services.AddHttpsRedirection(options =>
-        {
-            options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
-            options.HttpsPort = 443;
-        });
         
         var app = builder.Build();
 
@@ -29,10 +22,9 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        Console.WriteLine("I am HTTPS");
-        app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
+        Console.WriteLine("I am HTTP");
         app.Run();
     }
 }

@@ -1,29 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: something-api-deployment
+  name: something-api-deployment-https
   labels:
     app: something
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: something
+      app: something-api-https
   template:
     metadata:
       labels:
-        app: something
+        app: something-api-https
     spec:
       containers:
-      - name: something-api
-        image: "{{ .Values.images.registry }}/{{ .Values.somethingApi.image.repository }}:{{ .Values.somethingApi.image.tag }}"
+      - name: something-api-https
+        image: "localhost/something-api-https:israel"
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
         - containerPort: 443
         env:
         - name: URLS 
-          value: "http://[::]:80;https://[::]:443"
+          value: "https://*:443"
         - name: ASPNETCORE_Kestrel__Certificates__Default__Password
           value: "testpass"
         - name: ASPNETCORE_Kestrel__Certificates__Default__Path

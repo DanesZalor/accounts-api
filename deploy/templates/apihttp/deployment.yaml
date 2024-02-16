@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: something-api-deployment
+  labels:
+    app: something
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: something
+  template:
+    metadata:
+      labels:
+        app: something
+    spec:
+      containers:
+      - name: something-api
+        image: "localhost/something-api-http:israel"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: URLS 
+          value: "http://*:80"

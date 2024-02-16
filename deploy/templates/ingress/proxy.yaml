@@ -14,6 +14,8 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: api-service
+            name: api-service-http
             port:
               number: 80
+  tls:
+  - secretName: test-tls

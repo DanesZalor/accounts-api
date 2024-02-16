@@ -4,7 +4,7 @@ domain:
   name: something
 
 images:
-  registry: docker.io/library
+  registry: localhost
 
 somethingApi:
   image:
