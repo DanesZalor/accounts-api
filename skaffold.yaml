@@ -11,10 +11,14 @@ profiles:
       local:
         push: false
       artifacts:
-        - image: localhost/something-api-http
+        - image: localhost/something-api
           context: .
           docker:
-            dockerfile: src/Something.Api.Http/Dockerfile
+            dockerfile: src/Something.Api/Dockerfile
+        - image: localhost/counter-app
+          context: .
+          docker:
+            dockerfile: src/Counter.Host/Dockerfile
     deploy:
       helm:
         releases:

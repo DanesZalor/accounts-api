@@ -19,6 +19,7 @@ public class AccountController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Account>> Get()
     {
+        Environment.SetEnvironmentVariable("TESTVAR", $"{Guid.NewGuid()}", EnvironmentVariableTarget.Process);
         return Ok(_accountsRepository.GetAll());
     }
 

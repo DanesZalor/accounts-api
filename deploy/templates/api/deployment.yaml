@@ -1,37 +1,25 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: something-api-deployment-https
-#   labels:
-#     app: something
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: something-api-https
-#   template:
-#     metadata:
-#       labels:
-#         app: something-api-https
-#     spec:
-#       containers:
-#       - name: something-api-https
-#         image: localhost/something-api-https:b1e7cdfe6b73f239e50a26fc2a4c88567da27788c9c6755247229a278b83c8f8
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 443
-#         env:
-#         - name: URLS 
-#           value: "http://*:80;https://*:443"
-#         - name: ASPNETCORE_Kestrel__Certificates__Default__Password
-#           value: "testpass"
-#         - name: ASPNETCORE_Kestrel__Certificates__Default__Path
-#           value: "/mnt/certs/aspnetapp.pfx"
-#         volumeMounts:
-#         - name: certs
-#           mountPath: /mnt/certs
-#       volumes:
-#         - name: certs
-#           hostPath:
-#             path: /mnt/certificates/.aspnet/https
-#             type: Directory
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: something-api-deployment
+  labels:
+    app: something
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: something-api
+  template:
+    metadata:
+      labels:
+        app: something-api
+    spec:
+      containers:
+      - name: something-api
+        image: localhost/something-api
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: URLS 
+          value: "http://*:80"
