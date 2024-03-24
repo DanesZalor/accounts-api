@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: something-api
-        image: djdols420/something-api
+        image: djdols420/something-api:1.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 80
