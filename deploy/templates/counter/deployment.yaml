@@ -17,4 +17,4 @@ spec:
       containers:
       - name: counter-app
         image: djdols420/counter-app
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
