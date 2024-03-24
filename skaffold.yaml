@@ -11,11 +11,11 @@ profiles:
       local:
         push: false
       artifacts:
-        - image: localhost/something-api
+        - image: djdols420/something-api
           context: .
           docker:
             dockerfile: src/Something.Api/Dockerfile
-        - image: localhost/counter-app
+        - image: djdols420/counter-app
           context: .
           docker:
             dockerfile: src/Counter.Host/Dockerfile
