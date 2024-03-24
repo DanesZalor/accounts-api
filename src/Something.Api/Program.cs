@@ -23,7 +23,8 @@ public class Program
             .AddControllers();
         
         var app = builder.Build();
-
+        
+        Console.WriteLine("AMONGUS!!!");
         app.UseSwagger();
         app.UseSwaggerUI();
         
