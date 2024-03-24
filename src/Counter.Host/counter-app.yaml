@@ -7,7 +7,7 @@ spec:
   containers:
   - name: counter-app
     image: localhost/counter-host:test3
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     readinessProbe:
       exec:
         command:

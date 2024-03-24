@@ -17,7 +17,7 @@ spec:
       containers:
       - name: something-api
         image: djdols420/something-api
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         env:
