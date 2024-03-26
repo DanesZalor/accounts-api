@@ -16,5 +16,5 @@ spec:
     spec:
       containers:
       - name: counter-app
-        image: djdols420/counter-app:1.0.1
+        image: djdols420/counter-app:1.0.2
         imagePullPolicy: Always
