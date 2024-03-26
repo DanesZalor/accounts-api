@@ -17,10 +17,13 @@ public class CounterService : IHostedService
     {
         for(int i = 0; !cancellationToken.IsCancellationRequested; i++)
         {
-            await Task.Delay(1000);
-            _logger.LogInformation($"Counter tick: {i}");
+            if(i %2 == 0)
+            {
+                await Task.Delay(1000);
+                _logger.LogInformation($"Counter tick: {i}");
 
-            await DumpFile(cancellationToken, $"Counter tick: {i}");
+                await DumpFile(cancellationToken, $"Counter tick: {i}");
+            }
         }
     }
 
